@@ -3,17 +3,28 @@ new Vue({
 	data: {
 		total: 0,
 		items: [
-			{title: 'Item 1', price: 1, qty:0},
-			{title: 'Item 2', price: 22, qty:0},
-			{title: 'Item 3', price: 33, qty:0},
-			{title: 'Item 4', price: 10, qty:0},
+			{id:1, title: 'Item 1', price: 1, qty:0},
+			{id:2, title: 'Item 2', price: 22, qty:0},
+			{id:3, title: 'Item 3', price: 33, qty:0},
+			{id:4, title: 'Item 4', price: 10, qty:0},
 		],
 		cart: []
 	},
 	methods:{
 		addItem: function(index){
-			this.total += this.items[index].price;
-			this.cart.push(this.items[index])
+			var item = this.items[index];
+			this.total += item.price;
+			//if(this.cart.find(this.items[index]))
+			//this.cart.push(this.items[index])
+			
+			for (var i=0; i< this.cart.length; i++){
+				if (this.cart[i].id === item.id){
+					this.cart[i].qty++;
+					return;
+				}
+			}
+			
+			this.cart.push({id: item.id, title: item.title, qty: 1});
 		}
 	}
 });
