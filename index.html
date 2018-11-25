@@ -32,8 +32,8 @@
             <div v-if="cart.length != 0">
 	            <ul>
 	            <li class="cart-item" v-for="item, index in cart">
-		            <div class="item-title"> {{item.title}} : ${{item.price}}</div>
-		            <!--<button v-on:click="addItem(index)" class="add-to-cart"> Add to cart</button>-->
+		            <span class="item-title"> {{item.title}} : ${{item.price}}</span>
+		            * <span class="item-qty">{{item.qty}}</span>
 	            </li>
 	            </ul>
                 <div>Total: $ {{total}} </div>
