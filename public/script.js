@@ -13,6 +13,7 @@ new Vue({
 	methods:{
 		addItem: function(index){
 			this.total += this.items[index].price;
+			this.cart.push(this.items[index])
 		}
 	}
 });
