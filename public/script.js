@@ -24,7 +24,8 @@ new Vue({
 				}
 			}
 			
-			this.cart.push({id: item.id, title: item.title, qty: 1});
+			//this.cart.push({id: item.id, title: item.title, qty: 1, price: item.price});
+			this.cart.push({...item});
 		}
 	}
 });
