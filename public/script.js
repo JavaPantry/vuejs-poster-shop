@@ -11,6 +11,23 @@ new Vue({
 		cart: []
 	},
 	methods:{
+		increment(item){
+			item.qty++;
+			this.total += item.price
+		},
+		decrement(item){
+			item.qty--;
+			this.total -= item.price
+			if(item.qty <= 0){
+				//cart.remove(item);
+				for (var i=0; i< this.cart.length; i++){
+					if (this.cart[i].id === item.id){
+						this.cart.splice(i,1)
+						break;
+					}
+				}
+			}
+		},
 		addItem: function(index){
 			var item = this.items[index];
 			this.total += item.price;
@@ -25,7 +42,8 @@ new Vue({
 			}
 			
 			//this.cart.push({id: item.id, title: item.title, qty: 1, price: item.price});
-			this.cart.push({...item});
+			const length = this.cart.push({...item});
+			this.cart[length-1].qty++;
 		}
 	},
 	filters:{

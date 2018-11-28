@@ -23,7 +23,7 @@
             <!--<p>Products go here.</p>-->
 	        <div class="product" v-for="item, index in items">
 		        <h4 class="product-title">{{item.title}}</h4>
-		        <button v-on:click="addItem(index)" class="add-to-cart"> Add to cart</button>
+		        <button class="btn" v-on:click="addItem(index)" class="add-to-cart"> Add to cart</button>
 	        </div>
 
         </div>
@@ -34,6 +34,8 @@
 	            <li class="cart-item" v-for="item, index in cart">
 		            <span class="item-title"> {{item.title}} : {{item.price | currency}}</span>
 		            * <span class="item-qty">{{item.qty}}</span>
+		            <button class="btn" v-on:click="increment(item)">+</button>
+		            <button class="btn" v-on:click="decrement(item)">-</button>
 	            </li>
 	            </ul>
                 <div>Total: {{total | currency}} </div>
