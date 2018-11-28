@@ -3,10 +3,10 @@ new Vue({
 	data: {
 		total: 0,
 		items: [
-			{id:1, title: 'Item 1', price: 1, qty:0},
-			{id:2, title: 'Item 2', price: 22, qty:0},
-			{id:3, title: 'Item 3', price: 33, qty:0},
-			{id:4, title: 'Item 4', price: 10, qty:0},
+			{id:1, title: 'Item 1', price: 1.98, qty:0},
+			{id:2, title: 'Item 2', price: 22.99, qty:0},
+			{id:3, title: 'Item 3', price: 33.99, qty:0},
+			{id:4, title: 'Item 4', price: 10.50, qty:0},
 		],
 		cart: []
 	},
@@ -26,6 +26,12 @@ new Vue({
 			
 			//this.cart.push({id: item.id, title: item.title, qty: 1, price: item.price});
 			this.cart.push({...item});
+		}
+	},
+	filters:{
+		currency(price){
+			price = price.toFixed(2)
+			return '$'.concat(price)
 		}
 	}
 });

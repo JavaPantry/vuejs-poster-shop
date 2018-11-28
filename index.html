@@ -32,11 +32,11 @@
             <div v-if="cart.length != 0">
 	            <ul>
 	            <li class="cart-item" v-for="item, index in cart">
-		            <span class="item-title"> {{item.title | capitalize}} : ${{item.price}}</span>
+		            <span class="item-title"> {{item.title}} : {{item.price | currency}}</span>
 		            * <span class="item-qty">{{item.qty}}</span>
 	            </li>
 	            </ul>
-                <div>Total: $ {{total}} </div>
+                <div>Total: {{total | currency}} </div>
             </div>
 	        <div v-else class="empty-cart">
 		        Cart is empty
