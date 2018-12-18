@@ -3,10 +3,7 @@ new Vue({
 	data: {
 		total: 0,
 		items: [
-			{id:1, title: 'Item 1', price: 1.98, qty:0},
-			{id:2, title: 'Item 2', price: 22.99, qty:0},
-			{id:3, title: 'Item 3', price: 33.99, qty:0},
-			{id:4, title: 'Item 4', price: 10.50, qty:0},
+			/*{id:1, title: 'Item 1', price: 1.98, qty:0},*/
 		],
 		cart: [],
 		search: ''
@@ -14,7 +11,8 @@ new Vue({
 	methods:{
 		increment(item){
 			item.qty++;
-			this.total += item.price
+            let priceNum = Number(item.price)
+			this.total += priceNum
 		},
 		decrement(item){
 			item.qty--;
@@ -31,7 +29,8 @@ new Vue({
 		},
 		addItem: function(index){
 			var item = this.items[index];
-			this.total += item.price;
+            let priceNum = Number(item.price)
+			this.total += priceNum;
 			//if(this.cart.find(this.items[index]))
 			//this.cart.push(this.items[index])
 
@@ -51,15 +50,25 @@ new Vue({
             this.$http
 				.get('/search/'.concat(this.search))
 				.then(function (res) {
-						console.log(res)
+							//this.items = res.data;
+							let itemsWithPrice = [];
+							for(let i = 0 ; i < res.data.length; i++){
+								console.log(res.data[i].id + ':'+ res.data[i].title);
+								let price = Math.random()*100;
+								//item.price = price;
+                                //item.qty = 0;
+                                itemsWithPrice.push({...res.data[i], price:price,qty:0 })
+							}
+                    		this.items = itemsWithPrice;
             			}
             	);
         }
 	},
 	filters:{
 		currency(price){
-			price = price.toFixed(2)
-			return '$'.concat(price)
+            let priceNum = Number(price)
+            priceNum = priceNum.toFixed(2)
+			return '$'.concat(priceNum)
 		}
 	}
 });
