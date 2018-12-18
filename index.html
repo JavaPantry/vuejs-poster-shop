@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" xmlns:v-on="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8">
     <meta name="referrer" content="never" />
@@ -17,6 +17,10 @@
 <div id="app">
     <div class="header">
         <h1>Vue.js Poster Store</h1>
+        <form class="searchbar" v-on:submit.prevent="onSubmit">
+            <input type="text" v-model="search" placeholder="Search for posters">
+            <input type="submit" value="Search">  <!--class="btn" doesn't add anything-->
+        </form>
     </div>
     <div class="main">
         <div class="products">
@@ -50,6 +54,7 @@
 <!-- Scripts -->
 <script src="/reload/reload.js"></script>
 <script src="node_modules/vue/dist/vue.js"></script>
+<script src="node_modules/vue-resource/dist/vue-resource.js"></script>
 <script type="text/javascript" src="public/script.js"></script>
 
 </body>
