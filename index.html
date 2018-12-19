@@ -24,7 +24,7 @@
     </div>
     <div class="main">
         <div class="products">
-            <div class="search-results" v-if="lastSearch.length != 0">
+            <div class="search-results" v-if="loading === false">
                 Found {{items.length}} results for <b>{{lastSearch}}</b>
             </div>
             <!--<p>Products go here.</p>-->
