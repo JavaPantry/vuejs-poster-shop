@@ -6,7 +6,8 @@ new Vue({
 			/*{id:1, title: 'Item 1', price: 1.98, qty:0},*/
 		],
 		cart: [],
-		search: ''
+		search: '',
+        lastSearch: ''
 	},
 	methods:{
 		increment(item){
@@ -60,6 +61,7 @@ new Vue({
                                 itemsWithPrice.push({...res.data[i], price:price,qty:0 })
 							}
                     		this.items = itemsWithPrice;
+							this.lastSearch= this.search;
             			}
             	);
         }
