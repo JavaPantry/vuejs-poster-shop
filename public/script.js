@@ -6,7 +6,7 @@ new Vue({
 			/*{id:1, title: 'Item 1', price: 1.98, qty:0},*/
 		],
 		cart: [],
-		search: '',
+		search: 'beer',
         lastSearch: '',
         loading:false
 	},
@@ -76,5 +76,8 @@ new Vue({
             priceNum = priceNum.toFixed(2)
 			return '$'.concat(priceNum)
 		}
-	}
+	},
+	mounted: function () {
+        this.onSubmit();
+    }
 });
