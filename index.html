@@ -48,17 +48,23 @@
         </div>
         <div class="cart">
             <h2>Shopping Cart</h2>
+
             <div v-if="cart.length != 0">
 	            <ul>
-	            <li class="cart-item" v-for="item, index in cart">
+	            <li class="cart-item" v-for="item, index in cart" v-bind:key="item.id">
 		            <span class="item-title"> {{item.title}} : {{item.price | currency}}</span>
 		            * <span class="item-qty">{{item.qty}}</span>
 		            <button class="btn" v-on:click="increment(item)">+</button>
 		            <button class="btn" v-on:click="decrement(item)">-</button>
 	            </li>
 	            </ul>
-                <div>Total: {{total | currency}} </div>
             </div>
+            <transition name="fade">
+                <div v-if="cart.length != 0">
+                    Total: {{total | currency}}
+                </div>
+            </transition>
+
 	        <div v-else class="empty-cart">
 		        Cart is empty
 	        </div>
