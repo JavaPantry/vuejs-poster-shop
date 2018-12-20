@@ -1,3 +1,5 @@
+const LOAD_LIMIT = 10
+
 new Vue({
 	el: '#app',
 	data: {
@@ -5,6 +7,7 @@ new Vue({
 		items: [
 			/*{id:1, title: 'Item 1', price: 1.98, qty:0},*/
 		],
+		results:[],
 		cart: [],
 		search: 'beer',
         lastSearch: '',
@@ -48,19 +51,21 @@ new Vue({
 			this.cart[length-1].qty++;
 		},
         onSubmit:function(){
-			console.log('onSubmit:')
+			//console.log('onSubmit:')
             this.items = [];
             this.loading = true;
             this.$http
 				.get('/search/'.concat(this.search))
 				.then(function (res) {
-							//this.items = res.data;
-							let itemsWithPrice = [];
-							for(let i = 0 ; i < res.data.length; i++){
-								console.log(res.data[i].id + ':'+ res.data[i].title);
+							//this.items = res.data.slice(0,10);
+                    		this.results = res.data;
+
+                    		let itemsWithPrice = [];
+							let limitItems = res.data.length < LOAD_LIMIT ? res.data.length : LOAD_LIMIT
+
+							for(let i = 0 ; i < limitItems; i++){
+								//console.log(res.data[i].id + ':'+ res.data[i].title);
 								let price = Math.random()*100;
-								//item.price = price;
-                                //item.qty = 0;
                                 itemsWithPrice.push({...res.data[i], price:price,qty:0 })
 							}
                     		this.items = itemsWithPrice;
@@ -68,6 +73,22 @@ new Vue({
                             this.loading = false;
             			}
             	);
+        },
+		appendItems:function(){
+            console.log('appendItems');
+			if(this.items.length < this.results.length){
+                let itemsWithPrice = [];
+                let startIndex = this.items.length;
+                let limitItems = (this.results.length < startIndex+LOAD_LIMIT) ?
+					(this.results.length - startIndex)
+					: (startIndex + LOAD_LIMIT)
+
+                for(let i = startIndex ; i < startIndex + limitItems; i++){
+                    let price = Math.random()*100;
+                    itemsWithPrice.push({...this.results[i], price:price,qty:0 })
+                }
+                this.items.push(...itemsWithPrice)
+			}
         }
 	},
 	filters:{
@@ -79,5 +100,15 @@ new Vue({
 	},
 	mounted: function () {
         this.onSubmit();
+
+        var vueInstance = this;
+        var watchedElem = document.getElementById('product-list-bottom');
+        var watcher = scrollMonitor.create(watchedElem);
+        watcher.enterViewport(function () {
+            console.log('enterViewport');
+            vueInstance.appendItems();
+        });
+
     }
 });
+
