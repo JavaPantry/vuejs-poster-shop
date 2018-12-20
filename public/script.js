@@ -109,6 +109,11 @@ new Vue({
             vueInstance.appendItems();
         });
 
+    },
+    computed: {
+        noMoreItems: function() {
+            return (this.items.length == this.results.length && this.results.length > 0);
+        }
     }
 });
 
